@@ -17,6 +17,7 @@ const userSchema = new Schema({
     card: Number,
     verification: String,
   },
+  orderHistory: [{ type: mongoose.Types.ObjectId, ref: "Order" }],
 });
 
-export default new model("User", userSchema);
+export default model("User", userSchema);
