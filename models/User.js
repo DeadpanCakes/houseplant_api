@@ -18,6 +18,7 @@ const userSchema = new Schema({
     verification: String,
   },
   orderHistory: [{ type: mongoose.Types.ObjectId, ref: "Order" }],
+  lists: [{ type: mongoose.Types.ObjectId, ref: "List" }],
 });
 
 export default model("User", userSchema);
