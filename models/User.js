@@ -19,6 +19,7 @@ const userSchema = new Schema({
   },
   orderHistory: [{ type: mongoose.Types.ObjectId, ref: "Order" }],
   lists: [{ type: mongoose.Types.ObjectId, ref: "List" }],
+  isAdmin: Boolean,
 });
 
 export default model("User", userSchema);
