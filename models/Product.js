@@ -8,6 +8,7 @@ const productSchema = new Schema({
   price: Number,
   discount: Number,
   categories: [{ type: Schema.Types.ObjectId, ref: "Category" }],
+  isPublished: Boolean,
 });
 
 export default new mongoose.model("Product", productSchema);

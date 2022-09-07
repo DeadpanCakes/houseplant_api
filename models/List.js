@@ -12,6 +12,7 @@ const listSchema = new Schema({
   name: String,
   description: String,
   listings: [{ type: mongoose.Types.ObjectId, ref: "Listing" }],
+  isPublished: Boolean,
 });
 
 export default mongoose.model("List", listSchema);
