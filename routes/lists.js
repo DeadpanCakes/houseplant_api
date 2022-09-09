@@ -1,24 +1,15 @@
 const express = require("express");
 const router = express.Router();
+const listController = require("../controllers/lists");
 
-router.post("/", (req, res) => {
-  res.send(`create a new list`);
-});
+router.post("/", listController.post);
 
-router.get("/", (req, res) => {
-  res.json({ message: "list of all list" });
-});
+router.get("/", listController.get);
 
-router.get("/:id", (req, res) => {
-  res.send(`Send list whose id is ${req.params.id}`);
-});
+router.get("/:id", listController.getOne);
 
-router.put("/:id", (req, res) => {
-  res.send(`update list whose id is ${req.params.id}`);
-});
+router.put("/:id", listController.put);
 
-router.delete("/:id", (req, res) => {
-  res.send(`delete list whose id is ${req.params.id}`);
-});
+router.delete("/:id", listController.del);
 
 module.exports = router;
