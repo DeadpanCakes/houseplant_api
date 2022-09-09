@@ -16,3 +16,13 @@ describe("Categories", () => {
     });
   });
 });
+
+describe("Users", () => {
+  describe("POST", () => {
+    const request = supertest(app);
+    it("rejects a post without username and pass", async () => {
+      const res = await request.post("/users").send({ username: "Anthony" });
+      expect(res.status).toBe(400);
+    });
+  });
+});
