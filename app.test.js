@@ -12,10 +12,14 @@ const testFor200 = async (route) => {
 };
 
 describe("Categories", () => {
+  const route = "/categories/";
   describe("GET", () => {
-    const route = "/categories";
     it("responds with 200", () => testFor200(route));
     it("responds with json", async () => await testForJSON(route));
+  });
+  describe("GET ONE", () => {
+    const endpoint = route + "id";
+    it("responds with json", async () => await testForJSON(endpoint));
   });
 });
 
