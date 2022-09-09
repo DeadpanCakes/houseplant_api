@@ -1,3 +1,4 @@
+require("dotenv").config();
 var createError = require("http-errors");
 var express = require("express");
 var path = require("path");
@@ -5,6 +6,7 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const cors = require("cors");
 const helmet = require("helmet");
+const mongoose = require("mongoose");
 
 var indexRouter = require("./routes/index");
 
@@ -16,6 +18,12 @@ app.set("view engine", "jade");
 
 app.use(helmet());
 app.use(cors());
+
+const { DEV_DB_URL } = process.env;
+const mongoDB = process.env.MONGO_URI || DEV_DB_URL;
+mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
+const db = mongoose.connection;
+
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
