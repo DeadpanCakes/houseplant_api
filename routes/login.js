@@ -1,15 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const loginController = require("../controllers/login");
 
-router.post("/", (req, res) => {
-  const authSubmitted = (req) => {
-    return req.body.username && req.body.password;
-  };
-  if (authSubmitted(req)) {
-    res.json({ message: "create a new user" });
-  } else {
-    res.status(400).json({ message: "Username and password required" });
-  }
-});
+router.post("/", loginController.post);
 
 module.exports = router;
