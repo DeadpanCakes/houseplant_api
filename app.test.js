@@ -6,16 +6,15 @@ const testForJSON = async (route) => {
   expect(res.headers["content-type"]).toContain("json");
 };
 
+const testFor200 = async (route) => {
+  const res = await request(app).get(route);
+  expect(res.statusCode).toBe(200);
+};
+
 describe("Categories", () => {
   describe("GET", () => {
     const route = "/categories";
-    it("responds with 200", () => {
-      request(app)
-        .get("/categories")
-        .then((res) => {
-          expect(res.statusCode).toBe(200);
-        });
-    });
+    it("responds with 200", () => testFor200(route));
     it("responds with json", async () => await testForJSON(route));
   });
 });
