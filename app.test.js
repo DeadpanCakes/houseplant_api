@@ -26,3 +26,13 @@ describe("Users", () => {
     });
   });
 });
+
+describe("Log In", () => {
+  describe("POST", () => {
+    const request = supertest(app);
+    it("rejects a post without username and pass", async () => {
+      const res = await request.post("/login").send({});
+      expect(res.status).toBe(400);
+    });
+  });
+});
