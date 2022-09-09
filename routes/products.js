@@ -6,7 +6,7 @@ router.post("/", (req, res) => {
 });
 
 router.get("/", (req, res) => {
-  res.send("list of all products");
+  res.json({ message: "list of all products" });
 });
 
 router.get("/:id", (req, res) => {
