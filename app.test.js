@@ -27,6 +27,14 @@ describe("Lists", () => {
   });
 });
 
+describe("Products", () => {
+  describe("GET", () => {
+    const route = "/products";
+    it("returns with 200", async () => testFor200(route));
+    it("returns json", async () => testForJSON(route));
+  });
+});
+
 describe("Users", () => {
   describe("POST", () => {
     it("rejects a post without username and pass", async () => {
