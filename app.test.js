@@ -1,27 +1,31 @@
-const supertest = require("supertest");
+const request = require("supertest");
 const app = require("./app");
+
+const testForJSON = async (route) => {
+  const res = await request(app).get(route);
+  expect(res.headers["content-type"]).toContain("json");
+};
 
 describe("Categories", () => {
   describe("GET", () => {
-    const request = supertest(app);
+    const route = "/categories";
     it("responds with 200", () => {
-      request.get("/categories").then((res) => {
-        expect(res.statusCode).toBe(200);
-      });
+      request(app)
+        .get("/categories")
+        .then((res) => {
+          expect(res.statusCode).toBe(200);
+        });
     });
-    it("responds with json", () => {
-      request.get("/categories").then((res) => {
-        expect(res.headers["content-type"]).toContain("json");
-      });
-    });
+    it("responds with json", async () => await testForJSON(route));
   });
 });
 
 describe("Users", () => {
   describe("POST", () => {
-    const request = supertest(app);
     it("rejects a post without username and pass", async () => {
-      const res = await request.post("/users").send({ username: "Anthony" });
+      const res = await request(app)
+        .post("/users")
+        .send({ username: "Anthony" });
       expect(res.status).toBe(400);
     });
   });
@@ -29,9 +33,8 @@ describe("Users", () => {
 
 describe("Log In", () => {
   describe("POST", () => {
-    const request = supertest(app);
     it("rejects a post without username and pass", async () => {
-      const res = await request.post("/login").send({});
+      const res = await request(app).post("/login").send({});
       expect(res.status).toBe(400);
     });
   });
