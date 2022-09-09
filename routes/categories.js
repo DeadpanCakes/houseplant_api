@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const categoryController = require("../controllers/categories");
 
 router.post("/", (req, res) => {
   res.send(
@@ -7,9 +8,7 @@ router.post("/", (req, res) => {
   );
 });
 
-router.get("/", (req, res) => {
-  res.json({ message: "list of all categories" });
-});
+router.get("/", categoryController.get);
 
 router.get("/:id", (req, res) => {
   res.send(`Send category whose id is ${req.params.id}`);
