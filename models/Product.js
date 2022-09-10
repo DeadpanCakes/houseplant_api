@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const productSchema = new Schema({
@@ -11,4 +11,4 @@ const productSchema = new Schema({
   isPublished: Boolean,
 });
 
-export default new mongoose.model("Product", productSchema);
+module.exports = new mongoose.model("Product", productSchema);

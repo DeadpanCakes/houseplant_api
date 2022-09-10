@@ -1,4 +1,4 @@
-import mongoose, { isValidObjectId } from "mongoose";
+const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const listingSchema = new Schema({
@@ -15,4 +15,4 @@ const listSchema = new Schema({
   isPublished: Boolean,
 });
 
-export default mongoose.model("List", listSchema);
+module.exports = mongoose.model("List", listSchema);
