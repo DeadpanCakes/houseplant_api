@@ -1,3 +1,5 @@
+const Category = require("../models/Category");
+
 const categoryController = () => {
   const post = (req, res) => {
     res.send(
@@ -5,7 +7,9 @@ const categoryController = () => {
     );
   };
   const get = (req, res) => {
-    res.json({ message: "list of all categories" });
+    Category.find().then((categories) => {
+      res.json({ categories });
+    });
   };
   const getOne = (req, res) => {
     res.json({ message: `Send category whose id is ${req.params.id}` });
