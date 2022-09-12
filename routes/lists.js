@@ -10,6 +10,10 @@ router.get("/:id", listController.getOne);
 
 router.put("/:id", listController.put);
 
+router.put("/:id/add/:product", listController.addItem);
+
+router.put("/:id/remove/:listing", listController.removeItem);
+
 router.delete("/:id", listController.del);
 
 module.exports = router;

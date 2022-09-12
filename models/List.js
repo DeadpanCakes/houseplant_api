@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const listingSchema = new Schema({
-  item: { type: mongoose.Types.ObjectId, ref: "Product" },
+  product: { type: mongoose.Types.ObjectId, ref: "Product" },
   dateAdded: Date,
 });
 
