@@ -1,8 +1,20 @@
+const Product = require("../models/Product");
+const { List, Listing } = require("../models/List");
+
 const listController = () => {
-  const post = (req, res) => {
-    res.send(
-      `create a new category with name: ${req.body.name} and description: ${req.body.description}`
-    );
+  const post = async (req, res) => {
+    try {
+      const { name, description, isPublished } = req.body;
+      const list = await List.create({
+        name,
+        description,
+        isPublished,
+        listings: [],
+      });
+      return res.json({ message: "List Created", data: list });
+    } catch (error) {
+      return res.status(500).json({ message: "An Error Has Occurred", error });
+    }
   };
   const get = (req, res) => {
     res.json({ message: "list of all lists" });
