@@ -2,17 +2,26 @@ const Category = require("../models/Category");
 
 const categoryController = () => {
   const post = (req, res) => {
-    res.send(
-      `create a new category with name: ${req.body.name} and description: ${req.body.description}`
-    );
+    const { name, description } = req.body;
+    Category.create({ name, description }, (err, category) => {
+      if (err) {
+        return res.json({ message: "An Error Has Occurred" });
+      }
+      return res.json({ message: "Category Created", data: category });
+    });
   };
   const get = (req, res) => {
     Category.find().then((categories) => {
-      res.json({ categories });
+      return res.json({ categories });
     });
   };
   const getOne = (req, res) => {
-    res.json({ message: `Send category whose id is ${req.params.id}` });
+    Category.findById(req.params.id).then((category) => {
+      if (category) {
+        return res.json({ category });
+      }
+      return res.status(400).json({ error: "", data: null });
+    });
   };
   const put = (req, res) => {
     res.json(`update category whose id is ${req.params.id}`);
@@ -22,5 +31,7 @@ const categoryController = () => {
   };
   return { post, get, getOne, put, del };
 };
+
+const queryError = () => {};
 
 module.exports = categoryController();
