@@ -6,7 +6,7 @@ const productController = () => {
     try {
       const { name, description, price, stock, isPublished } = req.body;
       const category = await Category.findById(req.body.category).exec();
-      const newProduct = new Product({
+      const newProduct = await Product.create({
         name,
         description,
         price,
