@@ -15,4 +15,6 @@ const listSchema = new Schema({
   isPublished: Boolean,
 });
 
-module.exports = mongoose.model("List", listSchema);
+const List = mongoose.model("List", listSchema);
+
+module.exports = { List, Listing };
