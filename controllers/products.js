@@ -5,14 +5,13 @@ const productController = () => {
   const post = async (req, res) => {
     try {
       const { name, description, price, stock, isPublished } = req.body;
-      const category = await Category.findById(req.body.category).exec();
       const newProduct = await Product.create({
         name,
         description,
         price,
         stock,
         isPublished,
-        category,
+        categories: req.body.categories,
         discount: 0,
       });
       return res.json({ message: "Product Created", data: newProduct });
