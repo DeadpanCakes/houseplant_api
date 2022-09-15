@@ -18,7 +18,7 @@ describe("Categories", () => {
     it("responds with json", async () => await testForJSON(route));
   });
   describe("GET ONE", () => {
-    const endpoint = route + "id";
+    const endpoint = route + "631bd7fa5b891c24b5895f2f";
     it("responds with json", async () => await testForJSON(endpoint));
   });
 });
@@ -41,11 +41,9 @@ describe("Products", () => {
 
 describe("Users", () => {
   describe("POST", () => {
-    it("rejects a post without username and pass", async () => {
-      const res = await request(app)
-        .post("/users")
-        .send({ username: "Anthony" });
-      expect(res.status).toBe(400);
+    it("rejects a post without email and pass", async () => {
+      const res = await request(app).post("/users").send({ email: "Anthony" });
+      await expect(res.status).toBe(400);
     });
   });
 });
@@ -54,7 +52,7 @@ describe("Log In", () => {
   describe("POST", () => {
     it("rejects a post without username and pass", async () => {
       const res = await request(app).post("/login").send({});
-      expect(res.status).toBe(400);
+      await expect(res.status).toBe(400);
     });
   });
 });
