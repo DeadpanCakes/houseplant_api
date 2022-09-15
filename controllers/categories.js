@@ -1,4 +1,5 @@
 const Category = require("../models/Category");
+const ObjectId = require("mongoose").Types.ObjectId;
 
 const categoryController = () => {
   const post = (req, res) => {
@@ -16,12 +17,16 @@ const categoryController = () => {
     });
   };
   const getOne = (req, res) => {
-    Category.findById(req.params.id).then((category) => {
-      if (category) {
-        return res.json({ category });
-      }
-      return res.status(400).json({ error: "", data: null });
-    });
+    if (ObjectId.isValid(req.params.id)) {
+      Category.findById(req.params.id).then((category) => {
+        if (category) {
+          return res.json({ category });
+        }
+        return res.status(400).json({ error: "", data: null });
+      });
+    } else {
+      return res.status(400).json({ error: "ID Invalid", data: null });
+    }
   };
   const put = (req, res) => {
     res.json(`update category whose id is ${req.params.id}`);
