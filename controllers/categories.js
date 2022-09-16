@@ -28,8 +28,13 @@ const categoryController = () => {
       return res.status(400).json({ error: "ID Invalid", data: null });
     }
   };
-  const put = (req, res) => {
-    res.json(`update category whose id is ${req.params.id}`);
+  const put = async (req, res) => {
+    const updatedCategory = await Category.findByIdAndUpdate(
+      req.params.id,
+      req.body.update,
+      { new: true }
+    );
+    res.json({ message: `Updated`, updatedCategory });
   };
   const del = (req, res) => {
     res.send(`delete category whose id is ${req.params.id}`);

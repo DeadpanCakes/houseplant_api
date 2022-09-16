@@ -1,5 +1,5 @@
 const Product = require("../models/Product");
-const Category = require("../models/Category");
+const { isValid } = require("mongoose").Types.ObjectId;
 
 const productController = () => {
   const post = async (req, res) => {
@@ -32,8 +32,13 @@ const productController = () => {
     const product = await Product.findById(req.params.id);
     res.json({ message: `Product ${product.name} Gotten`, product });
   };
-  const put = (req, res) => {
-    res.json(`update product whose id is ${req.params.id}`);
+  const put = async (req, res) => {
+    const updatedProduct = await Product.findByIdAndUpdate(
+      req.params.id,
+      req.body.update,
+      { new: true }
+    );
+    res.json({ message: `Updated`, updatedProduct });
   };
   const del = (req, res) => {
     res.send(`delete product whose id is ${req.params.id}`);
@@ -41,6 +46,7 @@ const productController = () => {
   return { post, get, getOne, put, del };
 };
 
-const handleInvalidId = (message) => res.json({ message });
+const isIdIvalid = (id) => isValid(ObjectId);
+const handleInvalidId = () => res.json({ message: "Provided Id Invalid" });
 
 module.exports = productController();

@@ -28,8 +28,13 @@ const listController = () => {
       return res.json({ message: "List Does Not Exsit", list });
     }
   };
-  const put = (req, res) => {
-    res.json(`update list whose id is ${req.params.id}`);
+  const put = async (req, res) => {
+    const updatedList = await List.findByIdAndUpdate(
+      req.params.id,
+      req.body.update,
+      { new: true }
+    );
+    res.json({ message: `Updated`, updatedList });
   };
   const addItem = async (req, res) => {
     try {

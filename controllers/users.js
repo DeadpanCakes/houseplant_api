@@ -21,8 +21,13 @@ const userController = () => {
     const user = await User.findById(req.params.id);
     res.json({ message: `Got User`, user });
   };
-  const put = (req, res) => {
-    res.json(`update user whose id is ${req.params.id}`);
+  const put = async (req, res) => {
+    const updatedUser = await User.findByIdAndUpdate(
+      req.params.id,
+      req.body.update,
+      { new: true }
+    );
+    res.json({ message: `Updated`, updatedUser });
   };
   const del = (req, res) => {
     res.send(`delete user whose id is ${req.params.id}`);
