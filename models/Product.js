@@ -11,4 +11,8 @@ const productSchema = new Schema({
   isPublished: Boolean,
 });
 
+productSchema.virtual("url").get(function () {
+  return `/products/${this._id}`;
+});
+
 module.exports = new mongoose.model("Product", productSchema);

@@ -15,6 +15,10 @@ const listSchema = new Schema({
   isPublished: Boolean,
 });
 
+listSchema.virtual("url").get(function () {
+  return `/lists/${this._id}`;
+});
+
 const List = mongoose.model("List", listSchema);
 
 module.exports = { List, Listing };

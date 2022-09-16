@@ -22,4 +22,8 @@ const userSchema = new Schema({
   isAdmin: Boolean,
 });
 
+userSchema.virtual("url").get(function () {
+  return `/users/${this._id}`;
+});
+
 module.exports = new model("User", userSchema);

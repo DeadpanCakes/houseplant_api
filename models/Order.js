@@ -23,6 +23,10 @@ const orderSchema = new Schema({
   total: Number,
 });
 
+orderSchema.virtual("url").get(function () {
+  return `/orders/${this._id}`;
+});
+
 const Order = mongoose.model("Order", orderSchema);
 
 module.exports = { Order, OrderItem };
