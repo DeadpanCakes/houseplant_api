@@ -76,7 +76,9 @@ const listController = () => {
     }
   };
   const del = (req, res) => {
-    res.send(`delete list whose id is ${req.params.id}`);
+    List.findByIdAndDelete(req.params.id);
+    const lists = List.find();
+    res.json({ message: "Deleted", lists });
   };
   return { post, get, getOne, put, del, addItem, removeItem };
 };

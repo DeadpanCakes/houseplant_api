@@ -36,8 +36,10 @@ const categoryController = () => {
     );
     res.json({ message: `Updated`, updatedCategory });
   };
-  const del = (req, res) => {
-    res.send(`delete category whose id is ${req.params.id}`);
+  const del = async (req, res) => {
+    await Category.findByIdAndDelete(req.params.id);
+    const categories = await Category.find();
+    res.json({ message: "Deleted", categories });
   };
   return { post, get, getOne, put, del };
 };

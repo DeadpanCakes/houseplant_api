@@ -40,8 +40,10 @@ const productController = () => {
     );
     res.json({ message: `Updated`, updatedProduct });
   };
-  const del = (req, res) => {
-    res.send(`delete product whose id is ${req.params.id}`);
+  const del = async (req, res) => {
+    await Product.findByIdAndDelete(req.params.id);
+    const products = await Product.find();
+    res.json({ message: "Deleted", product });
   };
   return { post, get, getOne, put, del };
 };

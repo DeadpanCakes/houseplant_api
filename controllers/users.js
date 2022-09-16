@@ -29,8 +29,10 @@ const userController = () => {
     );
     res.json({ message: `Updated`, updatedUser });
   };
-  const del = (req, res) => {
-    res.send(`delete user whose id is ${req.params.id}`);
+  const del = async (req, res) => {
+    await User.findByIdAndDelete(req.params.id);
+    const users = await User.find();
+    res.json({ message: "Deleted", users });
   };
   return { post, get, getOne, put, del };
 };
