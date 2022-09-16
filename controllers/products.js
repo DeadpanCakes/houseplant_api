@@ -20,11 +20,17 @@ const productController = () => {
     }
   };
 
-  const get = (req, res) => {
-    res.json({ message: "product of all lists" });
+  const get = async (req, res) => {
+    const products = await Product.find();
+    if (products) {
+      return res.json({ message: "Got Products", products });
+    } else {
+      return res.json({ message: "Product Doesn't Exist" });
+    }
   };
-  const getOne = (req, res) => {
-    res.json({ message: `Send product whose id is ${req.params.id}` });
+  const getOne = async (req, res) => {
+    const product = await Product.findById(req.params.id);
+    res.json({ message: `Product ${product.name} Gotten`, product });
   };
   const put = (req, res) => {
     res.json(`update product whose id is ${req.params.id}`);
@@ -34,5 +40,7 @@ const productController = () => {
   };
   return { post, get, getOne, put, del };
 };
+
+const handleInvalidId = (message) => res.json({ message });
 
 module.exports = productController();

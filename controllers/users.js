@@ -13,11 +13,13 @@ const userController = () => {
       res.status(400).json({ message: "Email and password required" });
     }
   };
-  const get = (req, res) => {
-    res.json({ message: "user of all lists" });
+  const get = async (req, res) => {
+    const users = await User.find();
+    res.json({ message: "Got Users", users });
   };
-  const getOne = (req, res) => {
-    res.json({ message: `Send user whose id is ${req.params.id}` });
+  const getOne = async (req, res) => {
+    const user = await User.findById(req.params.id);
+    res.json({ message: `Got User`, user });
   };
   const put = (req, res) => {
     res.json(`update user whose id is ${req.params.id}`);

@@ -38,7 +38,12 @@ const orderController = () => {
   };
 
   const getOne = (req, res) => {
-    res.send(`Send order whose id is ${req.params.id}`);
+    const order = Order.findById(req.params.id);
+    if (order) {
+      return res.json({ message: `Order ${req.params.id} gotten`, order });
+    } else {
+      return res.json({ message: "Order Doesn't Exist" });
+    }
   };
   return { post, getOne };
 };

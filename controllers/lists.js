@@ -16,11 +16,17 @@ const listController = () => {
       return res.status(500).json({ message: "An Error Has Occurred", error });
     }
   };
-  const get = (req, res) => {
-    res.json({ message: "list of all lists" });
+  const get = async (req, res) => {
+    const lists = await List.find();
+    res.json({ message: "Lists Gotten", lists });
   };
-  const getOne = (req, res) => {
-    res.json({ message: `Send list whose id is ${req.params.id}` });
+  const getOne = async (req, res) => {
+    const list = await List.findById(req.params.id);
+    if (list) {
+      return res.json({ message: `Got ${list.name}`, list });
+    } else {
+      return res.json({ message: "List Does Not Exsit", list });
+    }
   };
   const put = (req, res) => {
     res.json(`update list whose id is ${req.params.id}`);
