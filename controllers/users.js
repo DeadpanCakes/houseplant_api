@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const hashPass = require("../auth/hashPass");
 
 const userController = () => {
   const post = async (req, res) => {
@@ -7,8 +8,10 @@ const userController = () => {
     };
     if (authSubmitted(req)) {
       const { email, password } = req.body;
-      const user = await User.create({ email, password });
-      return res.json({ message: "User Created", user });
+      hashPass(password, async (err, hash) => {
+        const user = await User.create({ email, password: hash });
+        return res.json({ message: "User Created" });
+      });
     } else {
       res.status(400).json({ message: "Email and password required" });
     }

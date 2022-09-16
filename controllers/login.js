@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const verifyPass = require("../auth/verifyPass");
 
 const loginController = () => {
   const post = async (req, res) => {
@@ -7,7 +8,8 @@ const loginController = () => {
     };
     if (authSubmitted(req)) {
       const user = await findUser(req.body.email);
-      const isValid = validatePass(user || { password: "" }, req.body.password);
+      const hash = user ? user.password : { password: "" };
+      const isValid = await verifyPass(req.body.password, hash);
       if (user && isValid) {
         return res.json({ message: "logged in" });
       } else {
