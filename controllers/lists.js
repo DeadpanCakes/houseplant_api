@@ -25,7 +25,7 @@ const listController = () => {
     if (list) {
       return res.json({ message: `Got ${list.name}`, list });
     } else {
-      return res.json({ message: "List Does Not Exsit", list });
+      return res.json({ message: "List Does Not Exist", list });
     }
   };
   const put = async (req, res) => {
@@ -53,13 +53,12 @@ const listController = () => {
         data: updatedList,
       });
     } catch (error) {
-      console.log(error);
       return res.status(500).json({ message: "An Error Has Occurred", error });
     }
   };
   const removeItem = async (req, res) => {
     try {
-      const listing = await Listing.findByIdAndDelete(req.params.listing);
+      await Listing.findByIdAndDelete(req.params.listing);
       const list = await List.findById(req.params.id);
       const updatedList = await List.findByIdAndUpdate(req.params.id, {
         listings: list.listings.filter(
@@ -69,9 +68,8 @@ const listController = () => {
           { returnDocument: "after" }
         ),
       });
-      return res.json({ message: "Listing Deleted", data: listing });
+      return res.json({ message: "Listing Deleted", data: updatedList });
     } catch (error) {
-      console.log(error);
       return res.status(500).json({ message: "An Error Has Occurred", error });
     }
   };
