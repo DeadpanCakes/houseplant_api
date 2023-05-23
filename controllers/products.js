@@ -28,10 +28,12 @@ const productController = () => {
       return res.json({ message: "Product Doesn't Exist" });
     }
   };
+
   const getOne = async (req, res) => {
     const product = await Product.findById(req.params.id);
     res.json({ message: `Product ${product.name} Gotten`, product });
   };
+
   const put = async (req, res) => {
     const updatedProduct = await Product.findByIdAndUpdate(
       req.params.id,
@@ -40,10 +42,11 @@ const productController = () => {
     );
     res.json({ message: `Updated`, updatedProduct });
   };
+
   const del = async (req, res) => {
     await Product.findByIdAndDelete(req.params.id);
     const products = await Product.find();
-    res.json({ message: "Deleted", product });
+    res.json({ message: "Deleted", products });
   };
   return { post, get, getOne, put, del };
 };
